@@ -844,31 +844,185 @@
             margin: 0;
         }
 
-        /* Showcase */
-        .showcase-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: var(--spacing-lg);
-            margin-top: var(--spacing-xl);
-        }
+/* Complete User Experience Showcase */
+.showcase-groups {
+    display: grid;
+    gap: 48px;
+    margin-top: var(--spacing-xl);
+}
 
-        .showcase-item {
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-            animation: fadeInUp 0.8s ease-out both;
-        }
+.showcase-group {
+    padding: clamp(22px, 3vw, 34px);
+    background: linear-gradient(135deg, #ffffff 0%, #f6fcf8 100%);
+    border: 1px solid rgba(45, 155, 111, 0.16);
+    border-radius: 26px;
+    box-shadow: 0 18px 48px rgba(16, 35, 30, 0.07);
+}
 
-        .showcase-item:nth-child(1) { animation-delay: 0s; }
-        .showcase-item:nth-child(2) { animation-delay: 0.1s; }
-        .showcase-item:nth-child(3) { animation-delay: 0.2s; }
-        .showcase-item:nth-child(4) { animation-delay: 0.3s; }
+.showcase-group-heading {
+    max-width: 760px;
+    margin-bottom: 24px;
+}
 
-        .showcase-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
+.showcase-group-heading h3 {
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    font-size: clamp(22px, 2.5vw, 30px);
+}
+
+.showcase-group-heading p {
+    margin: 0;
+    font-size: 15px;
+}
+
+.showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(16px, 2vw, 24px);
+}
+
+.showcase-item {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid rgba(45, 155, 111, 0.14);
+    border-radius: 20px;
+    background: white;
+    box-shadow: 0 12px 30px rgba(16, 35, 30, 0.08);
+    animation: fadeInUp 0.8s ease-out both;
+}
+
+.showcase-item:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.showcase-item:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.showcase-item:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.showcase-screen {
+    min-height: 380px;
+    display: grid;
+    place-items: center;
+    padding: 16px;
+    background: linear-gradient(145deg, #f1fbf4 0%, #eef8ff 100%);
+}
+
+/* iPhone Frame */
+.iphone-frame {
+    position: relative;
+    width: 174px;
+    height: 354px;
+    padding: 7px;
+    overflow: hidden;
+    border: 3px solid #2a2a2a;
+    border-radius: 34px;
+    background: #111;
+    box-shadow:
+        0 18px 28px rgba(16, 35, 30, 0.23),
+        inset 0 0 0 2px #555;
+}
+
+/* iPhone Notch */
+.iphone-frame::before {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    top: 7px;
+    left: 50%;
+    width: 66px;
+    height: 17px;
+    transform: translateX(-50%);
+    border-radius: 0 0 12px 12px;
+    background: #080808;
+}
+
+/* iPhone Home Indicator */
+.iphone-frame::after {
+    content: '';
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    bottom: 10px;
+    width: 58px;
+    height: 4px;
+    transform: translateX(-50%);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.86);
+}
+
+.iphone-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 26px;
+    display: block;
+}
+
+/* Placeholder داخل إطار iPhone */
+.iphone-frame .showcase-placeholder {
+    width: 100%;
+    min-height: 100%;
+    padding: 26px 12px;
+    border: 0;
+    border-radius: 26px;
+    background: linear-gradient(145deg, #f8fffa, #eef8ff);
+}
+
+.showcase-label {
+    display: block;
+    padding: 15px 16px 17px;
+    color: var(--text-dark);
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+    border-top: 1px solid rgba(45, 155, 111, 0.12);
+}
+
+.showcase-placeholder {
+    width: min(100%, 230px);
+    min-height: 300px;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 10px;
+    padding: 24px;
+    color: var(--text-muted);
+    text-align: center;
+    border: 1px dashed rgba(45, 155, 111, 0.45);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.78);
+}
+
+.showcase-placeholder-icon {
+    display: grid;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    color: white;
+    font-size: 24px;
+    background: linear-gradient(135deg, var(--primary), var(--teal));
+}
+
+.showcase-placeholder strong {
+    color: var(--primary);
+    font-size: 16px;
+}
+
+.showcase-placeholder small {
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+@media (max-width: 980px) {
+    .showcase-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
 
         /* Closing */
         .closing {
@@ -1273,24 +1427,133 @@ nav a:hover::after,nav a.active::after { transform:scaleX(1); }
         </div>
     </section>
 
-    <!-- Additional Screens -->
-	<section id="features" class="light">
-	        <div class="container">
-	            <h2>Complete User Experience</h2>
-            <p>Every screen is optimized for simplicity and efficiency, from secure authentication through account management.</p>
-            
-            <div class="showcase-grid">
-                <div class="showcase-item">
-                    <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251738/a1lvlsmbb7nex9tvuxt9.png" alt="Login">
+<!-- Complete User Experience -->
+<section id="features" class="light">
+    <div class="container">
+        <h2>Complete User Experience</h2>
+
+        <div class="showcase-groups">
+
+            <!-- Group 1: Authentication & Account -->
+            <div class="showcase-group">
+                <div class="showcase-group-heading">
+                    <h3>Authentication & Account Management</h3>
+
+                    <p>
+                        Every screen is optimized for simplicity and efficiency,
+                        from secure authentication through account management.
+                    </p>
                 </div>
-                <div class="showcase-item">
-                    <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251738/amxpfr53s9ey69psvfma.png" alt="Sign Up">
+
+                <div class="showcase-grid">
+
+                    <!-- Login Screen -->
+                    <div class="showcase-item">
+                        <div class="showcase-screen">
+                            <div class="iphone-frame">
+                                <img
+                                    src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251738/a1lvlsmbb7nex9tvuxt9.png"
+                                    alt="Login Screen">
+                            </div>
+                        </div>
+
+                        <span class="showcase-label">
+                            Login Screen
+                        </span>
+                    </div>
+
+                    <!-- Sign Up Screen -->
+                    <div class="showcase-item">
+                        <div class="showcase-screen">
+                            <div class="iphone-frame">
+                                <img
+                                    src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251738/amxpfr53s9ey69psvfma.png"
+                                    alt="Sign Up Screen">
+                            </div>
+                        </div>
+
+                        <span class="showcase-label">
+                            Sign Up Screen
+                        </span>
+                    </div>
+
+                    <!-- User Profile Screen -->
+                    <div class="showcase-item">
+                        <div class="showcase-screen">
+                            <div class="iphone-frame">
+                                <img
+                                    src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251739/gmr1k4l29w3c2c36tdb0.png"
+                                    alt="User Profile Screen">
+                            </div>
+                        </div>
+
+                        <span class="showcase-label">
+                            User Profile
+                        </span>
+                    </div>
+
                 </div>
-                <div class="showcase-item">
-                    <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251739/lbljc3gfo7hexrwo7av7.png" alt="Checkout">
+            </div>
+
+            <!-- Group 2: Shopping & Orders -->
+            <div class="showcase-group">
+                <div class="showcase-group-heading">
+                    <h3>Shopping & Order Journey</h3>
+
+                    <p>
+                        From building the cart to reviewing past purchases
+                        and confirming a new order, every step stays clear,
+                        focused, and easy to follow.
+                    </p>
                 </div>
-                <div class="showcase-item">
-                    <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251739/gmr1k4l29w3c2c36tdb0.png" alt="Profile">
+
+                <div class="showcase-grid">
+
+                    <!-- Cart Screen -->
+                    <div class="showcase-item">
+                        <div class="showcase-screen">
+                            <div class="iphone-frame">
+                                <img
+                                    src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251739/lbljc3gfo7hexrwo7av7.png"
+                                    alt="Cart Screen">
+                            </div>
+                        </div>
+
+                        <span class="showcase-label">
+                            Cart Screen
+                        </span>
+                    </div>
+
+                    <!-- Order History Screen -->
+                    <div class="showcase-item">
+                        <div class="showcase-screen">
+                            <div class="iphone-frame">
+                                <img
+                                    src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789762220/yiedzt7vovedi9ygbrna.png"
+                                    alt="Order History Screen">
+                            </div>
+                        </div>
+
+                        <span class="showcase-label">
+                            Order History
+                        </span>
+                    </div>
+
+                    <!-- Order Confirmed Screen -->
+                    <div class="showcase-item">
+                        <div class="showcase-screen">
+                            <div class="iphone-frame">
+                                <img
+                                    src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789762250/shkfodnwjkln9chhljal.png"
+                                    alt="Order Confirmed Screen">
+                            </div>
+                        </div>
+
+                        <span class="showcase-label">
+                            Order Confirmed
+                        </span>
+                    </div>
+
                 </div>
             </div>
         </div>
