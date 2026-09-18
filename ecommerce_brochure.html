@@ -2077,6 +2077,34 @@ nav a:hover::after,nav a.active::after { transform:scaleX(1); }
     </footer>
 
 <script>
+        if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+
+    function resetPagePosition() {
+        if (window.location.hash) {
+            history.replaceState(
+                null,
+                document.title,
+                window.location.pathname + window.location.search
+            );
+        }
+
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'instant'
+        });
+    }
+
+    window.addEventListener('load', function () {
+        setTimeout(resetPagePosition, 0);
+    });
+
+    window.addEventListener('pageshow', function () {
+        setTimeout(resetPagePosition, 0);
+    });
+    
 (() => {
   const body = document.body, header = document.querySelector('header');
   const progress = document.createElement('div'); progress.className = 'scroll-progress'; body.appendChild(progress);
