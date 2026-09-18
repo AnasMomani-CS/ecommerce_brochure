@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fresh Produce Delivery - Mobile App Brochure</title>
+    <title>Fresh Produce eCommerce — Software Engineering Case Study</title>
     <style>
         * {
             margin: 0;
@@ -12,15 +12,17 @@
         }
 
         :root {
-            --color-primary-dark: #2D9B6F;
-            --color-primary: #4CAF50;
-            --color-accent-teal: #1DB89E;
-            --color-accent-light: #5DDFCC;
-            --color-text-dark: #1a1a1a;
-            --color-text-light: #666;
-            --color-bg-light: #FAFAF8;
-            --color-bg-white: #FFFFFF;
-            --color-border: #E8E8E5;
+            --primary: #4CAF50;
+            --primary-dark: #2D9B6F;
+            --teal: #1DB89E;
+            --text-dark: #1a1a1a;
+            --text-light: #666;
+            --text-muted: #999;
+            --bg-white: #FFFFFF;
+            --bg-light: #FAFAF8;
+            --bg-dark: #0F0F0F;
+            --border: #E8E8E5;
+            --accent-red: #FF6B6B;
             --spacing-xs: 8px;
             --spacing-sm: 16px;
             --spacing-md: 24px;
@@ -35,63 +37,138 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
             line-height: 1.6;
-            color: var(--color-text-dark);
-            background-color: var(--color-bg-white);
+            color: var(--text-dark);
+            background: var(--bg-white);
+            overflow-x: hidden;
         }
 
         /* Typography */
         h1 {
-            font-size: 48px;
+            font-size: 56px;
             font-weight: 700;
             line-height: 1.2;
-            margin-bottom: var(--spacing-md);
-            letter-spacing: -0.5px;
+            letter-spacing: -1px;
         }
 
         h2 {
-            font-size: 36px;
+            font-size: 42px;
             font-weight: 700;
-            line-height: 1.3;
-            margin-bottom: var(--spacing-md);
-            letter-spacing: -0.3px;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+            margin-bottom: var(--spacing-lg);
         }
 
         h3 {
-            font-size: 24px;
+            font-size: 28px;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: var(--spacing-md);
+        }
+
+        h4 {
+            font-size: 18px;
             font-weight: 600;
             line-height: 1.4;
-            margin-bottom: var(--spacing-sm);
         }
 
         p {
             font-size: 16px;
-            line-height: 1.7;
-            color: var(--color-text-light);
-            max-width: 65ch;
+            line-height: 1.8;
+            color: var(--text-light);
         }
 
-        /* Utility Classes */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 var(--spacing-lg);
         }
 
-        .gradient-text {
-            background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-accent-teal) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* Header & Navigation */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        @keyframes flow {
+            0% { stroke-dashoffset: 1000; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .slide-left {
+            animation: slideInLeft 0.8s ease-out forwards;
+        }
+
+        .slide-right {
+            animation: slideInRight 0.8s ease-out forwards;
+        }
+
+        /* Section Styling */
+        section {
+            padding: var(--spacing-xl) 0;
+        }
+
+        section.dark {
+            background: var(--bg-dark);
+            color: white;
+        }
+
+        section.light {
+            background: var(--bg-light);
+        }
+
+        section.accent {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--teal) 100%);
+            color: white;
+        }
+
+        /* Header */
         header {
-            background: var(--color-bg-white);
-            border-bottom: 1px solid var(--color-border);
-            padding: var(--spacing-sm) 0;
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 100;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: var(--spacing-md) 0;
         }
 
         .header-content {
@@ -100,30 +177,50 @@
             justify-content: space-between;
         }
 
-        .logo {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--color-primary);
-            letter-spacing: -0.5px;
-        }
+        .logo,
+.closing h3 {
+    font-weight: 700;
+    font-size: 16px;
+
+    background: linear-gradient(
+        110deg,
+        #9bdcff 0%,
+        #3e9fe5 38%,
+        #125a9d 68%,
+        #05070a 100%
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+    color: transparent !important;
+}
+
 
         nav a {
-            color: var(--color-text-dark);
+            margin-left: var(--spacing-lg);
+            color: var(--text-dark);
             text-decoration: none;
             font-size: 14px;
-            margin-left: var(--spacing-lg);
             transition: color 0.3s ease;
         }
 
         nav a:hover {
-            color: var(--color-primary);
+            color: var(--primary);
         }
 
-        /* Hero Section */
+        body {
+            padding-top: 60px;
+        }
+
+        /* Hero */
         .hero {
-            background: linear-gradient(135deg, #F5FFF8 0%, #F0F9F7 100%);
-            padding: var(--spacing-xl) 0;
-            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #F5FFF8 0%, #F0F9F7 50%, #E8F5FF 100%);
+            padding-top: var(--spacing-xl);
         }
 
         .hero-content {
@@ -134,54 +231,60 @@
         }
 
         .hero-text h1 {
-            font-size: 56px;
+            color: var(--text-dark);
             margin-bottom: var(--spacing-md);
+            animation: fadeInUp 0.8s ease-out;
         }
 
-        .hero-text p {
-            font-size: 18px;
+        .hero-text .subtitle {
+            font-size: 20px;
+            color: var(--text-light);
             margin-bottom: var(--spacing-lg);
-            color: var(--color-text-light);
+            line-height: 1.6;
+            animation: fadeInUp 0.8s ease-out 0.1s both;
         }
 
-        .cta-button {
-            display: inline-block;
-            padding: 16px 40px;
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent-teal) 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 12px;
-            font-weight: 600;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
+        .hero-badges {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
         }
 
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 24px rgba(76, 175, 80, 0.25);
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dark);
         }
 
-        .hero-image {
+        .hero-screenshot {
+            position: relative;
             display: flex;
             justify-content: center;
-            align-items: center;
+            animation: slideInRight 0.8s ease-out 0.2s both;
         }
 
-        .phone-frame {
+        .phone-showcase {
             width: 300px;
             height: 600px;
-            background: var(--color-bg-white);
+            background: white;
             border-radius: 40px;
             padding: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-            border: 8px solid var(--color-bg-white);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+            border: 8px solid white;
             overflow: hidden;
             position: relative;
         }
 
-        .phone-frame::before {
+        .phone-showcase::before {
             content: '';
             position: absolute;
             top: 0;
@@ -189,12 +292,12 @@
             transform: translateX(-50%);
             width: 150px;
             height: 25px;
-            background: var(--color-text-dark);
+            background: var(--text-dark);
             border-radius: 0 0 30px 30px;
             z-index: 10;
         }
 
-        .phone-frame img {
+        .phone-showcase img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -202,288 +305,670 @@
             display: block;
         }
 
-        /* Sections */
-        section {
-            padding: var(--spacing-xl) 0;
-        }
-
-        section.light {
-            background-color: var(--color-bg-light);
-        }
-
-        /* Features Grid */
-        .features-grid {
+        /* Overview */
+        .overview {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: var(--spacing-lg);
-            margin-top: var(--spacing-xl);
-        }
-
-        .feature-card {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--spacing-lg);
-            align-items: center;
-            background: var(--color-bg-white);
-            padding: var(--spacing-lg);
-            border-radius: 20px;
-            border: 1px solid var(--color-border);
-            transition: border-color 0.3s ease;
-        }
-
-        .feature-card:hover {
-            border-color: var(--color-primary);
-        }
-
-        .feature-card.reverse {
-            direction: rtl;
-        }
-
-        .feature-card.reverse > * {
-            direction: ltr;
-        }
-
-        .feature-card img {
-            width: 100%;
-            height: auto;
-            border-radius: 16px;
-        }
-
-        .feature-card h3 {
-            color: var(--color-text-dark);
-            margin-bottom: var(--spacing-sm);
-        }
-
-        .feature-card p {
-            color: var(--color-text-light);
-            margin-bottom: 0;
-        }
-
-        /* Highlights Section */
-        .highlights {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--spacing-lg);
-            margin-top: var(--spacing-xl);
-        }
-
-        .highlight-item {
-            text-align: center;
-            padding: var(--spacing-lg);
-        }
-
-        .highlight-icon {
-            font-size: 48px;
-            margin-bottom: var(--spacing-sm);
-        }
-
-        .highlight-item h3 {
-            margin-bottom: var(--spacing-sm);
-            color: var(--color-primary-dark);
-        }
-
-        .highlight-item p {
-            font-size: 14px;
-            margin: 0 auto;
-        }
-
-        /* Screenshots Gallery */
-        .screenshots-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(6, 1fr);
             gap: var(--spacing-md);
             margin-top: var(--spacing-xl);
         }
 
-        .screenshot-item {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .screenshot-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .screenshot-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 20px;
-        }
-
-        .screenshot-label {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-            color: white;
-            padding: var(--spacing-md);
-            border-radius: 0 0 20px 20px;
-        }
-
-        .screenshot-label h4 {
-            font-size: 16px;
-            font-weight: 600;
-            margin: 0;
-        }
-
-        .screenshot-label p {
-            font-size: 12px;
-            color: rgba(255,255,255,0.8);
-            margin: 4px 0 0 0;
-        }
-
-        /* Flow Section */
-        .flow-steps {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: var(--spacing-md);
-            margin-top: var(--spacing-xl);
-        }
-
-        .flow-step {
-            position: relative;
+        .lifecycle-step {
             text-align: center;
-            padding: var(--spacing-md);
-            background: var(--color-bg-white);
+            padding: var(--spacing-lg);
+            background: white;
             border-radius: 16px;
-            border: 1px solid var(--color-border);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .lifecycle-step:nth-child(1) { animation-delay: 0s; }
+        .lifecycle-step:nth-child(2) { animation-delay: 0.1s; }
+        .lifecycle-step:nth-child(3) { animation-delay: 0.2s; }
+        .lifecycle-step:nth-child(4) { animation-delay: 0.3s; }
+        .lifecycle-step:nth-child(5) { animation-delay: 0.4s; }
+        .lifecycle-step:nth-child(6) { animation-delay: 0.5s; }
+
+        .lifecycle-step:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.1);
         }
 
         .step-number {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent-teal) 100%);
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--teal) 100%);
             color: white;
             border-radius: 50%;
             font-weight: 700;
-            font-size: 18px;
+            font-size: 20px;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .lifecycle-step h4 {
+            color: var(--text-dark);
             margin-bottom: var(--spacing-sm);
         }
 
-        .flow-step h4 {
-            font-size: 14px;
-            margin-bottom: var(--spacing-sm);
-            color: var(--color-text-dark);
-        }
-
-        .flow-step p {
-            font-size: 12px;
-            color: var(--color-text-light);
+        .lifecycle-step p {
+            font-size: 13px;
+            color: var(--text-muted);
             margin: 0;
         }
 
-        .flow-step::after {
-            content: '→';
+        /* Feature Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-xl);
+        }
+
+        .feature-block {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-lg);
+            align-items: center;
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .feature-block.reverse {
+            direction: rtl;
+        }
+
+        .feature-block.reverse > * {
+            direction: ltr;
+        }
+
+        .feature-text h3 {
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .feature-text p {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+            color: var(--text-light);
+            font-size: 15px;
+        }
+
+        .feature-list li:before {
+            content: "✓";
             position: absolute;
-            right: -28px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 24px;
-            color: var(--color-primary);
-            font-weight: 300;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
         }
 
-        .flow-step:last-child::after {
-            display: none;
+        .screenshot-frame {
+            display: flex;
+            justify-content: center;
         }
 
-        /* CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-accent-teal) 100%);
-            padding: var(--spacing-xl) 0;
+        .screenshot-phone {
+            width: 260px;
+            height: 520px;
+            background: white;
+            border-radius: 32px;
+            padding: 9px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            border: 6px solid white;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .screenshot-phone::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 130px;
+            height: 21px;
+            background: var(--text-dark);
+            border-radius: 0 0 26px 26px;
+            z-index: 10;
+        }
+
+        .screenshot-phone img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 28px;
+            display: block;
+        }
+
+        /* Technology Stack */
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+
+        .tech-category {
+            padding: var(--spacing-lg);
+            background: white;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .tech-category:nth-child(1) { animation-delay: 0s; }
+        .tech-category:nth-child(2) { animation-delay: 0.1s; }
+        .tech-category:nth-child(3) { animation-delay: 0.2s; }
+
+        .tech-category h4 {
+            color: var(--primary);
+            margin-bottom: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tech-list {
+            list-style: none;
+        }
+
+        .tech-list li {
+            padding: 8px 0;
+            color: var(--text-light);
+            font-size: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tech-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Architecture */
+        .architecture-container {
+            background: var(--bg-white);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: var(--spacing-xl);
+            margin-top: var(--spacing-xl);
+            overflow: auto;
+        }
+
+        .architecture-diagram {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--spacing-lg);
+            align-items: stretch;
+            position: relative;
+        }
+
+        .arch-layer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: var(--spacing-lg);
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(29, 184, 158, 0.1));
+            border-radius: 12px;
+            border: 2px solid var(--primary);
             text-align: center;
-            border-radius: 24px;
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .arch-layer:nth-child(1) { animation-delay: 0s; }
+        .arch-layer:nth-child(2) { animation-delay: 0.1s; }
+        .arch-layer:nth-child(3) { animation-delay: 0.2s; }
+        .arch-layer:nth-child(4) { animation-delay: 0.3s; }
+        .arch-layer:nth-child(5) { animation-delay: 0.4s; }
+
+        .arch-layer.dark {
+            background: var(--bg-dark);
+            border-color: var(--teal);
+        }
+
+        .arch-layer h4 {
+            color: var(--text-dark);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .arch-layer.dark h4 {
             color: white;
         }
 
-        .cta-section h2 {
+        .arch-layer p {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .arch-layer.dark p {
+            color: #999;
+        }
+
+        .arch-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            color: var(--text-muted);
+        }
+
+        .arch-support {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+            padding-top: var(--spacing-lg);
+            border-top: 2px solid var(--border);
+        }
+
+        .support-box {
+            padding: var(--spacing-md);
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .support-box:nth-child(1) { animation-delay: 0.5s; }
+        .support-box:nth-child(2) { animation-delay: 0.6s; }
+        .support-box:nth-child(3) { animation-delay: 0.7s; }
+
+        .support-box h4 {
+            color: var(--text-dark);
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .support-box p {
+            font-size: 12px;
+            margin: 0;
+        }
+
+        /* Practices */
+        .practices-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+
+        .practice-card {
+            padding: var(--spacing-lg);
+            background: white;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .practice-card:nth-child(n) { animation-delay: calc(0.1s * var(--index)); }
+
+        .practice-card h4 {
+            color: var(--primary);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .practice-card p {
+            font-size: 14px;
+            margin: 0;
+        }
+
+        /* API Section */
+        .api-flow {
+            background: white;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: var(--spacing-xl);
+            margin-top: var(--spacing-xl);
+        }
+
+        .flow-diagram {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--spacing-md);
+            align-items: center;
+            margin-top: var(--spacing-xl);
+        }
+
+        .flow-item {
+            padding: var(--spacing-lg);
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.15), rgba(29, 184, 158, 0.15));
+            border: 1px solid var(--primary);
+            border-radius: 12px;
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .flow-item:nth-child(1) { animation-delay: 0s; }
+        .flow-item:nth-child(2) { animation-delay: 0.1s; }
+        .flow-item:nth-child(3) { animation-delay: 0.2s; }
+        .flow-item:nth-child(4) { animation-delay: 0.3s; }
+        .flow-item:nth-child(5) { animation-delay: 0.4s; }
+
+        .flow-item h4 {
+            color: var(--text-dark);
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .flow-item p {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .flow-arrow {
+            text-align: center;
+            color: var(--primary);
+            font-size: 20px;
+            margin-top: -8px;
+        }
+
+        /* API Endpoints */
+        .endpoint-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+
+        .endpoint {
+            padding: var(--spacing-md);
+            background: var(--bg-light);
+            border-radius: 12px;
+            border-left: 3px solid var(--primary);
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 12px;
+        }
+
+        .endpoint-method {
+            display: inline-block;
+            padding: 3px 8px;
+            background: var(--primary);
+            color: white;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 11px;
+            margin-right: 8px;
+        }
+
+        /* Split Section */
+        .split-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-xl);
+        }
+
+        .split-box {
+            padding: var(--spacing-xl);
+            background: white;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .split-box.right {
+            animation-delay: 0.1s;
+        }
+
+        .split-box h3 {
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .split-box.dark {
+            background: var(--bg-dark);
+            color: white;
+        }
+
+        .split-box.dark h3 {
+            color: white;
+        }
+
+        .tech-item {
+            padding: 12px 0;
+            padding-left: 20px;
+            position: relative;
+            color: var(--text-light);
+            font-size: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .split-box.dark .tech-item {
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+            color: #ccc;
+        }
+
+        .tech-item:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: var(--spacing-xl) 0;
+            margin-top: var(--spacing-xl);
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--teal) 100%);
+            transform: translateX(-1px);
+        }
+
+        .timeline-items {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-xl);
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+            align-items: center;
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            grid-column: 1;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            grid-column: 2;
+            text-align: left;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 20px;
+            width: 16px;
+            height: 16px;
+            background: var(--bg-white);
+            border: 3px solid var(--primary);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-dot {
+            grid-column: 2;
+            margin-left: -48px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            grid-column: 1;
+            margin-left: 48px;
+        }
+
+        .timeline-content {
+            position: relative;
+            padding: var(--spacing-lg);
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .timeline-content h4 {
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .timeline-content p {
+            font-size: 14px;
+            margin: 0;
+        }
+
+        /* Showcase */
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+
+        .showcase-item {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .showcase-item:nth-child(1) { animation-delay: 0s; }
+        .showcase-item:nth-child(2) { animation-delay: 0.1s; }
+        .showcase-item:nth-child(3) { animation-delay: 0.2s; }
+        .showcase-item:nth-child(4) { animation-delay: 0.3s; }
+
+        .showcase-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Closing */
+        .closing {
+            text-align: center;
+            padding: var(--spacing-xl) 0;
+        }
+
+        .closing h2 {
             color: white;
             margin-bottom: var(--spacing-md);
         }
 
-        .cta-section p {
-            color: rgba(255, 255, 255, 0.95);
+        .closing p {
             font-size: 18px;
-            margin-bottom: var(--spacing-lg);
-        }
-
-        .cta-button-light {
-            display: inline-block;
-            padding: 16px 40px;
-            background: white;
-            color: var(--color-primary);
-            text-decoration: none;
-            border-radius: 12px;
-            font-weight: 600;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .cta-button-light:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+            margin: 0 auto var(--spacing-lg);
         }
 
         /* Footer */
         footer {
-            background: var(--color-text-dark);
-            color: rgba(255, 255, 255, 0.7);
-            padding: var(--spacing-lg) 0;
+            background: var(--text-dark);
+            color: #999;
             text-align: center;
+            padding: var(--spacing-lg) 0;
             font-size: 14px;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 36px;
-            }
-
-            h2 {
-                font-size: 28px;
-            }
-
-            .container {
-                padding: 0 var(--spacing-md);
-            }
+            h1 { font-size: 36px; }
+            h2 { font-size: 28px; }
+            h3 { font-size: 22px; }
 
             .hero-content,
-            .feature-card,
             .features-grid,
-            .highlights,
-            .screenshots-grid,
-            .flow-steps {
+            .feature-block,
+            .tech-stack,
+            .split-section,
+            .showcase-grid {
                 grid-template-columns: 1fr;
             }
 
-            .flow-steps {
-                gap: var(--spacing-lg);
+            .feature-block.reverse {
+                direction: ltr;
             }
 
-            .flow-step::after {
+            .overview {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .architecture-diagram {
+                grid-template-columns: 1fr;
+            }
+
+            .arch-arrow {
                 display: none;
             }
 
-            .flow-step::before {
-                content: '↓';
-                display: block;
-                font-size: 20px;
-                color: var(--color-primary);
-                margin-top: var(--spacing-md);
+            .arch-support {
+                grid-template-columns: 1fr;
             }
 
-            .flow-step:last-child::before {
+            .flow-diagram {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-arrow {
                 display: none;
+            }
+
+            .endpoint-list {
+                grid-template-columns: 1fr;
+            }
+
+            .practices-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 0;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                grid-column: 1;
+                text-align: left;
+            }
+
+            .timeline-dot {
+                left: 0;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-dot,
+            .timeline-item:nth-child(even) .timeline-dot {
+                margin-left: 0;
             }
 
             nav {
@@ -494,20 +979,89 @@
                 padding: var(--spacing-lg) 0;
             }
         }
+    
+/* Premium interaction layer */
+:root { --ease-out: cubic-bezier(.22,1,.36,1); --shadow-soft: 0 18px 50px rgba(16,35,30,.11); }
+body::before { content:''; position:fixed; inset:0 0 auto; height:3px; z-index:2000; background:linear-gradient(90deg,#2d9b6f,#64d9b1,#8bbcff); transform:scaleX(0); transform-origin:left; }
+.scroll-progress { position:fixed; top:3px; left:0; width:0; height:3px; z-index:2001; background:linear-gradient(90deg,#2d9b6f,#64d9b1); }
+header { transition:padding .35s var(--ease-out),background .35s ease,box-shadow .35s ease; }
+header.scrolled { padding:10px 0; background:rgba(255,255,255,.84); box-shadow:0 8px 30px rgba(16,35,30,.08); }
+nav a { position:relative; transition:color .25s ease; }
+nav a::after { content:''; position:absolute; left:0; right:0; bottom:-8px; height:2px; background:var(--primary); transform:scaleX(0); transition:transform .25s ease; }
+nav a:hover::after,nav a.active::after { transform:scaleX(1); }
+.reveal { opacity:0; transform:translateY(26px); transition:opacity .75s var(--ease-out),transform .75s var(--ease-out); }
+.reveal.from-left { transform:translateX(-28px); }
+.reveal.from-right { transform:translateX(28px); }
+.reveal.is-visible { opacity:1; transform:none; }
+.reveal-stagger > * { opacity:0; transform:translateY(18px); transition:opacity .6s var(--ease-out),transform .6s var(--ease-out); }
+.reveal-stagger.is-visible > * { opacity:1; transform:none; }
+.reveal-stagger.is-visible > *:nth-child(2){transition-delay:.08s}.reveal-stagger.is-visible > *:nth-child(3){transition-delay:.16s}.reveal-stagger.is-visible > *:nth-child(4){transition-delay:.24s}.reveal-stagger.is-visible > *:nth-child(5){transition-delay:.32s}.reveal-stagger.is-visible > *:nth-child(6){transition-delay:.40s}
+.hero { position:relative; overflow:hidden; }
+.hero::before { content:''; position:absolute; width:420px; height:420px; right:-120px; top:12%; border-radius:50%; background:radial-gradient(circle,rgba(100,217,177,.28),transparent 65%); animation:ambientFloat 9s ease-in-out infinite; }
+@keyframes ambientFloat { 50% { transform:translateY(-18px) scale(1.04); } }
+.phone-showcase { animation:heroFloat 5s ease-in-out infinite; }
+@keyframes heroFloat { 0%,100%{transform:translateY(0) rotate(1deg)}50%{transform:translateY(-13px) rotate(-1deg)} }
+.phone-showcase,.screenshot-phone { transition:transform .5s var(--ease-out),box-shadow .5s var(--ease-out); }
+.phone-showcase:hover,.screenshot-phone:hover { transform:translateY(-10px) rotate(1deg); box-shadow:0 28px 70px rgba(16,35,30,.22); }
+.badge,.lifecycle-step,.tech-category,.practice-card,.split-box,.showcase-item,.timeline-content,.support-box { transition:transform .35s var(--ease-out),box-shadow .35s ease,border-color .35s ease; }
+.badge:hover,.lifecycle-step:hover,.tech-category:hover,.practice-card:hover,.split-box:hover,.showcase-item:hover,.timeline-content:hover,.support-box:hover { transform:translateY(-7px); box-shadow:var(--shadow-soft); border-color:rgba(45,155,111,.5); }
+	.showcase-item img { transition:transform .6s var(--ease-out); }.showcase-item:hover img { transform:scale(1.035); }
+	.design-process { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--spacing-lg); margin-top:var(--spacing-xl); }
+	.prototype-card { background:#fff; border:1px solid var(--border); border-radius:18px; overflow:hidden; box-shadow:0 12px 35px rgba(16,35,30,.07); transition:transform .35s var(--ease-out),box-shadow .35s ease,border-color .35s ease; }
+	.prototype-card:hover { transform:translateY(-7px); box-shadow:var(--shadow-soft); border-color:rgba(45,155,111,.5); }
+	.prototype-preview { min-height:260px; display:grid; place-items:center; padding:var(--spacing-md); background:linear-gradient(135deg,#f2fbf6,#eef8ff); }
+	.prototype-preview img { width:100%; height:260px; object-fit:contain; border-radius:10px; display:block; }
+	.prototype-placeholder { width:100%; min-height:220px; display:grid; place-items:center; text-align:center; padding:var(--spacing-lg); color:var(--text-muted); border:1px dashed rgba(45,155,111,.45); border-radius:10px; background:rgba(255,255,255,.7); }
+	.prototype-placeholder strong { display:block; color:var(--primary); font-size:17px; margin-bottom:6px; }
+	.prototype-copy { padding:var(--spacing-lg); }
+	.prototype-copy h3 { font-size:22px; margin-bottom:8px; }
+	.prototype-copy p { font-size:14px; margin:0; }
+	.figma-link { display:inline-flex; align-items:center; gap:8px; margin-top:var(--spacing-lg); padding:12px 18px; border-radius:9px; background:var(--text-dark); color:#fff; text-decoration:none; font-weight:600; transition:transform .25s var(--ease-out),background .25s ease; }
+	.figma-link:hover { transform:translateY(-3px); background:var(--primary); }
+	.design-intro { max-width:760px; }
+	.architecture-container,.api-flow { position:relative; }
+	.architecture-diagram { grid-template-columns:repeat(6,minmax(0,1fr)); gap:14px; }
+	.arch-layer:not(:last-child)::before { content:'→'; position:absolute; right:-21px; top:50%; transform:translateY(-50%); color:var(--primary); font-size:20px; font-weight:700; z-index:2; }
+	.arch-layer { position:relative; min-height:126px; }
+	.arch-layer::after,.flow-item::after { content:''; position:absolute; left:-45%; right:-45%; bottom:0; height:2px; background:linear-gradient(90deg,transparent,#64d9b1,transparent); transform:translateX(-55%); opacity:0; }
+.architecture-container.is-visible .arch-layer::after,.api-flow.is-visible .flow-item::after { opacity:1; animation:dataSweep 2.4s ease-in-out infinite; }
+@keyframes dataSweep { 0%{transform:translateX(-55%)}55%,100%{transform:translateX(55%)} }
+.flow-arrow { animation:arrowPulse 1.8s ease-in-out infinite; } @keyframes arrowPulse { 50%{transform:translateX(4px);color:var(--teal)} }
+	.timeline::after { content:''; position:absolute; left:50%; top:0; height:0; width:3px; transform:translateX(-50%); background:var(--mint); transition:height 1.8s var(--ease-out); z-index:0; }.timeline.is-visible::after{height:100%}
+	.timeline-item { position:relative; }
+	.timeline-item .timeline-dot,.timeline-item:nth-child(odd) .timeline-dot,.timeline-item:nth-child(even) .timeline-dot { left:50%; top:50%; margin-left:0; transform:translate(-50%,-50%); }
+.menu-toggle { display:none; border:0; background:transparent; color:#10231e; font-size:24px; cursor:pointer; }
+.scroll-top { position:fixed; right:22px; bottom:22px; width:42px; height:42px; border:1px solid rgba(45,155,111,.35); border-radius:50%; background:#fff; color:#2d9b6f; cursor:pointer; opacity:0; pointer-events:none; transform:translateY(10px); transition:.3s var(--ease-out); z-index:900; box-shadow:0 8px 22px rgba(16,35,30,.12); }.scroll-top.visible{opacity:1;pointer-events:auto;transform:none}
+	@media(max-width:980px){.architecture-diagram{grid-template-columns:repeat(3,minmax(0,1fr))}.arch-layer:nth-child(3)::before,.arch-layer:nth-child(6)::before{display:none}}
+	@media(max-width:768px){.menu-toggle{display:block}nav{position:absolute;top:100%;left:16px;right:16px;display:flex;flex-direction:column;gap:4px;padding:12px;background:rgba(255,255,255,.97);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow-soft);opacity:0;pointer-events:none;transform:translateY(-8px);transition:.25s var(--ease-out)}body.menu-open nav{opacity:1;pointer-events:auto;transform:none}nav a{margin:0;padding:11px 12px}nav a::after{display:none}.architecture-diagram{grid-template-columns:1fr}.arch-layer::before{display:none!important}.timeline::after{left:0;transform:none}.timeline-item .timeline-dot,.timeline-item:nth-child(odd) .timeline-dot,.timeline-item:nth-child(even) .timeline-dot{left:0;top:50%;transform:translate(-50%,-50%);margin-left:0}.design-process{grid-template-columns:1fr}.prototype-preview{min-height:220px}.prototype-preview img{height:220px}}
+	@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}.reveal,.reveal-stagger>*{opacity:1!important;transform:none!important}}
 
-        @media print {
-            header {
-                position: static;
-            }
+	/* Development Journey — clean centered timeline */
+	.timeline { max-width:1080px; margin:var(--spacing-xl) auto 0; padding:28px 0; counter-reset:journey; }
+	.timeline::before { left:50%; width:2px; background:linear-gradient(180deg,transparent 0%,var(--primary) 8%,var(--teal) 92%,transparent 100%); }
+	.timeline::after { left:50%; width:4px; background:linear-gradient(180deg,var(--mint),var(--teal)); border-radius:999px; z-index:1; }
+	.timeline-items { gap:28px; }
+	.timeline-item { position:relative; display:grid; grid-template-columns:minmax(0,1fr) 72px minmax(0,1fr); gap:0; align-items:center; min-height:118px; counter-increment:journey; }
+	.timeline-item .timeline-dot,.timeline-item:nth-child(odd) .timeline-dot,.timeline-item:nth-child(even) .timeline-dot { position:relative; left:auto; top:auto; grid-column:2; grid-row:1; width:42px; height:42px; margin:0 auto; transform:none; display:grid; place-items:center; background:#fff; border:3px solid var(--primary); box-shadow:0 0 0 7px rgba(100,217,177,.18),0 8px 22px rgba(16,35,30,.13); z-index:3; }
+	.timeline-dot::after { content:counter(journey,decimal-leading-zero); color:var(--primary); font-size:12px; font-weight:800; letter-spacing:.02em; }
+	.timeline-item:nth-child(odd) .timeline-content { grid-column:1; grid-row:1; text-align:right; margin-right:18px; }
+	.timeline-item:nth-child(even) .timeline-content { grid-column:3; grid-row:1; text-align:left; margin-left:18px; }
+	.timeline-content { border-radius:16px; padding:22px 24px; background:rgba(255,255,255,.94); box-shadow:0 10px 30px rgba(16,35,30,.07); }
+	.timeline-content h4 { color:var(--ink); font-size:17px; margin-bottom:6px; }
+	.timeline-content p { font-size:13px; line-height:1.65; }
+	.timeline-item:hover .timeline-dot { transform:scale(1.12); background:var(--mint); box-shadow:0 0 0 10px rgba(100,217,177,.18),0 10px 26px rgba(16,35,30,.16); }
+	.timeline-item:hover .timeline-content { transform:translateY(-5px); }
+	@media(max-width:768px){
+		.timeline { margin-left:0; padding:20px 0 20px 28px; }
+		.timeline::before,.timeline::after { left:8px; transform:none; }
+		.timeline-items { gap:18px; }
+		.timeline-item { display:block; min-height:0; padding-left:24px; }
+		.timeline-item .timeline-dot,.timeline-item:nth-child(odd) .timeline-dot,.timeline-item:nth-child(even) .timeline-dot { position:absolute; left:-20px; top:50%; width:34px; height:34px; transform:translateY(-50%); margin:0; box-shadow:0 0 0 5px rgba(100,217,177,.18),0 6px 16px rgba(16,35,30,.12); }
+		.timeline-dot::after { font-size:10px; }
+		.timeline-item:nth-child(odd) .timeline-content,.timeline-item:nth-child(even) .timeline-content { display:block; margin:0; text-align:left; }
+		.timeline-content { padding:18px 18px; }
+	}
 
-            .cta-button, .cta-button-light {
-                border: 2px solid var(--color-primary);
-            }
-
-            section {
-                page-break-inside: avoid;
-            }
-        }
     </style>
 </head>
 <body>
@@ -515,208 +1069,770 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo">Fresh Produce Delivery</div>
+                <div class="logo">Cayan Solutions</div>
                 <nav>
+	                    <a href="#design-process">Design & Development</a>
                     <a href="#features">Features</a>
-                    <a href="#how-it-works">How It Works</a>
-                    <a href="#download">Download</a>
+                    <a href="#architecture">Architecture</a>
+                    <a href="#api">API</a>
+                    <a href="#testing">Testing</a>
                 </nav>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h1>Fresh Produce, Delivered Daily to Your Door</h1>
-                    <p>Discover a smarter way to shop for fruits, vegetables, and fresh groceries. Browse our curated selection, select your preferred weights, and have everything delivered to your location—all from your phone.</p>
-                    <button class="cta-button">Download Now</button>
+                    <h1>From Product Idea to Production-Ready Architecture</h1>
+                    <p class="subtitle">A real-world eCommerce mobile application developed across UI/UX design, Flutter frontend, .NET Core backend APIs, SQL Server database integration, security implementation and comprehensive testing.</p>
+                    
+                    <div class="hero-badges">
+                        <div class="badge">🎯 Software Development Internship</div>
+	                        <div class="badge">🎨 Figma + Design</div>
+	                        <div class="badge">📱 Flutter + Dart</div>
+                        <div class="badge">⚙️ .NET + REST APIs</div>
+                        <div class="badge">🛡️ JWT + HTTPS</div>
+                        <div class="badge">🗄️ SQL Server</div>
+                    </div>
                 </div>
-                <div class="hero-image">
-                    <div class="phone-frame">
-                        <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251738/SplashScreen.png" alt="App splash screen">
+                
+                <div class="hero-screenshot">
+                    <div class="phone-showcase">
+                        <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251738/SplashScreen.png" alt="Fresh Produce App Home Screen">
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Key Highlights -->
+    <!-- Project Overview -->
     <section class="light">
         <div class="container">
-            <h2 style="text-align: center; margin-bottom: var(--spacing-xl);">Why Choose Fresh Produce Delivery</h2>
-            <div class="highlights">
-                <div class="highlight-item">
-                    <div class="highlight-icon">🥗</div>
-                    <h3>Freshest Selection</h3>
-                    <p>Handpicked produce harvested daily, delivered at peak freshness for quality you can taste.</p>
+            <h2>Complete Software Development Lifecycle</h2>
+            <p>The project spanned the entire lifecycle from initial requirements through production stabilization:</p>
+            
+            <div class="overview">
+                <div class="lifecycle-step">
+                    <div class="step-number">1</div>
+                    <h4>Requirements</h4>
+                    <p>Define scope and features</p>
                 </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">📍</div>
-                    <h3>Fast Delivery</h3>
-                    <p>Order whenever you want and get your produce delivered to your location quickly and reliably.</p>
+                <div class="lifecycle-step">
+                    <div class="step-number">2</div>
+                    <h4>Design</h4>
+                    <p>Low-fi → High-fi UI/UX</p>
                 </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">💚</div>
-                    <h3>Save Your Favorites</h3>
-                    <p>Mark items you love to quickly add them to your cart next time you shop.</p>
+                <div class="lifecycle-step">
+                    <div class="step-number">3</div>
+                    <h4>Development</h4>
+                    <p>Frontend & backend code</p>
+                </div>
+                <div class="lifecycle-step">
+                    <div class="step-number">4</div>
+                    <h4>Integration</h4>
+                    <p>API & database connection</p>
+                </div>
+                <div class="lifecycle-step">
+                    <div class="step-number">5</div>
+                    <h4>Testing</h4>
+                    <p>Validation & verification</p>
+                </div>
+                <div class="lifecycle-step">
+                    <div class="step-number">6</div>
+                    <h4>Stabilization</h4>
+                    <p>Debug & production ready</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section id="features">
+	    <!-- Planning & Figma Design -->
+	    <section id="design-process" class="light">
+	        <div class="container">
+	            <h2>From Planning to Product Design</h2>
+	            <p class="design-intro">The project started with planning and visual design before implementation. The prototypes below show the progression from the initial structure to the refined interface that was later translated into Flutter screens.</p>
+
+	            <div class="design-process reveal reveal-stagger">
+	                <article class="prototype-card">
+	                    <div class="prototype-preview">
+	                        <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789754227/zokfdtltiexl4qeisuzj.png" alt="Low-Fidelity Prototype" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+	                        <div class="prototype-placeholder" style="display:none;"><div><strong>Low-Fidelity Prototype</strong>Place your wireframe image here:<br><code>assets/design/low-fidelity-prototype.png</code></div></div>
+	                    </div>
+	                    <div class="prototype-copy">
+	                        <h3>Low-Fidelity Prototype</h3>
+	                        <p>Early planning stage focused on information architecture, user flow and the structure of the main shopping experience.</p>
+	                    </div>
+	                </article>
+
+	                <article class="prototype-card">
+	                    <div class="prototype-preview">
+	                        <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789754198/v1sxznbznobvl9tdrzlh.png" alt="High-Fidelity Prototype" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+	                        <div class="prototype-placeholder" style="display:none;"><div><strong>High-Fidelity Prototype</strong>Place your final Figma design image here:<br><code>assets/design/high-fidelity-prototype.png</code></div></div>
+	                    </div>
+	                    <div class="prototype-copy">
+	                        <h3>High-Fidelity UI/UX</h3>
+	                        <p>Refined visual design covering layout, typography, colors, spacing and the interface details prepared for Flutter implementation.</p>
+	                    </div>
+	                </article>
+	            </div>
+
+	            <a class="figma-link" href="https://www.figma.com/design/p3X5WmHesQBYMEEr6Kq0ha/eCommerce-Design?node-id=0-1&t=w73UsmRkGzU0UJWY-1" target="_blank" rel="noopener noreferrer">Open the Figma project ↗</a>
+	        </div>
+	    </section>
+
+	    <!-- Design to Development -->
+    <section id="design">
         <div class="container">
-            <h2>Core Features</h2>
+            <h2>Design to Implementation</h2>
+            <p>The application began with design in Figma, then translated into functional Flutter screens with seamless API integration.</p>
             
             <div class="features-grid">
-                <!-- Feature 1: Browse & Explore -->
-                <div class="feature-card">
-                    <div>
-                        <h3>Browse & Explore</h3>
-                        <p>Explore fresh fruits, vegetables, and grocery items organized by category. See detailed product information, pricing, and weight options. Search for exactly what you need or discover new items with our featured selection.</p>
+                <!-- Feature 1 -->
+                <div class="feature-block" style="animation-delay: 0s;">
+                    <div class="feature-text">
+                        <h3>Personalized Shopping</h3>
+                        <p>Users see their delivery location and a curated feed of fresh produce organized by category. The home screen displays active promotions and featured products with real-time pricing.</p>
+                        <ul class="feature-list">
+                            <li>Location-based delivery display</li>
+                            <li>Product categories</li>
+                            <li>Promotional banners</li>
+                            <li>Featured products with pricing</li>
+                            <li>Search functionality</li>
+                        </ul>
                     </div>
-                    <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251739/uwpaxdvitjdtxv7jjudt.png" alt="Browse products screen">
+                    <div class="screenshot-frame">
+                        <div class="screenshot-phone">
+                            <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251739/uwpaxdvitjdtxv7jjudt.png" alt="Home Screen">
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Feature 2: Smart Selection -->
-                <div class="feature-card reverse">
-                    <div>
-                        <h3>Choose Your Perfect Weight</h3>
-                        <p>Select from multiple weight options for each product. Whether you need a small amount or stocking up for the week, our flexible weight selections ensure you get exactly what you need without waste.</p>
+                <!-- Feature 2 -->
+                <div class="feature-block reverse" style="animation-delay: 0.1s;">
+                    <div class="feature-text">
+                        <h3>Flexible Product Selection</h3>
+                        <p>Each product offers multiple weight options (0.25 kg to 5 kg) with real-time price calculation. The detailed product screen shows high-quality images and descriptions.</p>
+                        <ul class="feature-list">
+                            <li>Multiple weight selections</li>
+                            <li>Real-time price updates</li>
+                            <li>Product descriptions</li>
+                            <li>Clear imagery</li>
+                            <li>Quick add to cart</li>
+                        </ul>
                     </div>
-                    <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251739/jh0gvmkeouoblbeugctm.png" alt="Product selection screen">
+                    <div class="screenshot-frame">
+                        <div class="screenshot-phone">
+                            <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251739/jh0gvmkeouoblbeugctm.png" alt="Product Details">
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Feature 3: Favorites -->
-                <div class="feature-card">
-                    <div>
-                        <h3>Save Your Favorites</h3>
-                        <p>Build a personalized list of your go-to products. Quick access to your favorite items makes reordering faster and easier. Great for your regular produce essentials.</p>
+                <!-- Feature 3 -->
+                <div class="feature-block" style="animation-delay: 0.2s;">
+                    <div class="feature-text">
+                        <h3>Smart Favorites</h3>
+                        <p>Save frequently purchased items for quick reordering. The favorites list shows current prices and available discounts at a glance.</p>
+                        <ul class="feature-list">
+                            <li>One-tap save functionality</li>
+                            <li>View all prices</li>
+                            <li>See current discounts</li>
+                            <li>Quick reorder access</li>
+                            <li>Easy removal</li>
+                        </ul>
                     </div>
-                    <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251738/ar6nzndclcgyi7xeftgj.png" alt="Favorites screen">
+                    <div class="screenshot-frame">
+                        <div class="screenshot-phone">
+                            <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251738/ar6nzndclcgyi7xeftgj.png" alt="Favorites">
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Feature 4: Smart Cart -->
-                <div class="feature-card reverse">
-                    <div>
-                        <h3>Manage Your Cart</h3>
-                        <p>Add, remove, or adjust quantities right from your cart. See real-time pricing with our special offers and discounts. Everything is organized and easy to review before checkout.</p>
+                <!-- Feature 4 -->
+                <div class="feature-block reverse" style="animation-delay: 0.3s;">
+                    <div class="feature-text">
+                        <h3>Streamlined Checkout</h3>
+                        <p>Review cart with quantity adjustments, view applied discounts, select delivery address, choose payment method, and confirm order with total summary.</p>
+                        <ul class="feature-list">
+                            <li>Cart management</li>
+                            <li>Discount application</li>
+                            <li>Address selection</li>
+                            <li>Payment options</li>
+                            <li>Order summary</li>
+                        </ul>
                     </div>
-                    <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251739/lbljc3gfo7hexrwo7av7.png" alt="Shopping cart screen">
+                    <div class="screenshot-frame">
+                        <div class="screenshot-phone">
+                            <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251739/lbljc3gfo7hexrwo7av7.png" alt="Shopping Cart">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Complete User Experience -->
+    <!-- Additional Screens -->
+	<section id="features" class="light">
+	        <div class="container">
+	            <h2>Complete User Experience</h2>
+            <p>Every screen is optimized for simplicity and efficiency, from secure authentication through account management.</p>
+            
+            <div class="showcase-grid">
+                <div class="showcase-item">
+                    <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251738/a1lvlsmbb7nex9tvuxt9.png" alt="Login">
+                </div>
+                <div class="showcase-item">
+                    <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251738/amxpfr53s9ey69psvfma.png" alt="Sign Up">
+                </div>
+                <div class="showcase-item">
+                    <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251738/uus0auoyajyikh61esxq.png" alt="Checkout">
+                </div>
+                <div class="showcase-item">
+                    <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251739/gmr1k4l29w3c2c36tdb0.png" alt="Profile">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Stack -->
+    <section>
+        <div class="container">
+            <h2>Technology Stack</h2>
+            <p>A modern, professional technology choice for mobile eCommerce development:</p>
+            
+            <div class="tech-stack">
+                <div class="tech-category" style="animation-delay: 0s;">
+                    <h4>📱 Frontend</h4>
+                    <ul class="tech-list">
+                        <li>Flutter Framework</li>
+                        <li>Dart Programming</li>
+                        <li>REST API Integration</li>
+                        <li>JSON Parsing</li>
+                        <li>State Management</li>
+                        <li>Git / GitHub</li>
+                    </ul>
+                </div>
+
+                <div class="tech-category" style="animation-delay: 0.1s;">
+                    <h4>⚙️ Backend</h4>
+                    <ul class="tech-list">
+                        <li>C# Programming</li>
+                        <li>ASP.NET Core Framework</li>
+                        <li>RESTful API Design</li>
+                        <li>Dependency Injection</li>
+                        <li>AutoMapper</li>
+                        <li>JWT Authentication</li>
+                    </ul>
+                </div>
+
+                <div class="tech-category" style="animation-delay: 0.2s;">
+                    <h4>🗄️ Data & Tools</h4>
+                    <ul class="tech-list">
+                        <li>Microsoft SQL Server</li>
+                        <li>Entity Framework Core</li>
+                        <li>Repository Pattern</li>
+                        <li>Swagger Documentation</li>
+                        <li>Postman Testing</li>
+                        <li>Figma Design</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture -->
+    <section id="architecture" class="light">
+        <div class="container">
+            <h2>Layered Architecture</h2>
+            <p>The application follows a separation of concerns pattern with clear responsibility boundaries across presentation, service, data, and database layers.</p>
+            
+            <div class="architecture-container">
+                <div class="architecture-diagram">
+                    <div class="arch-layer">
+                        <h4>📱 Flutter App</h4>
+                        <p>UI & User Interaction</p>
+                    </div>
+
+                    <div class="arch-layer">
+                        <h4>🌐 HTTP REST</h4>
+                        <p>JSON over HTTPS</p>
+                    </div>
+
+                    <div class="arch-layer">
+                        <h4>🎮 Controller</h4>
+                        <p>HTTP Endpoints<br>Request Handling</p>
+                    </div>
+
+                    <div class="arch-layer">
+                        <h4>⚡ Application</h4>
+                        <p>Business Logic<br>Services & DTOs</p>
+                    </div>
+
+                    <div class="arch-layer dark">
+                        <h4>💾 Data</h4>
+                        <p>Repository & EF Core<br>DbContext</p>
+                    </div>
+
+                    <div class="arch-layer dark">
+                        <h4>🗄️ SQL Server</h4>
+                        <p>Persistent Storage</p>
+                    </div>
+                </div>
+
+                <div class="arch-support">
+                    <div class="support-box">
+                        <h4>Cayan.Project.Infrastructure</h4>
+                        <p>Cross-cutting concerns, logging, configuration</p>
+                    </div>
+                    <div class="support-box">
+                        <h4>Cayan.Project.Shared</h4>
+                        <p>Common DTOs, utilities, constants</p>
+                    </div>
+                    <div class="support-box">
+                        <h4>Cayan.Project.Tests</h4>
+                        <p>Unit and integration tests</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: var(--spacing-xl); color: var(--text-dark);">Request → Response Flow</h3>
+            <p style="color: var(--text-light);">A user interaction on the mobile app triggers an HTTP request that flows through the API layers, services, and repositories to query or modify data in SQL Server, then returns a JSON response through the same layers back to the Flutter UI.</p>
+        </div>
+    </section>
+
+    <!-- Engineering Practices -->
+    <section>
+        <div class="container">
+            <h2>Engineering Practices</h2>
+            <p>The project was built using solid software engineering principles that ensure maintainability, scalability, and reliability:</p>
+            
+            <div class="practices-grid">
+                <div class="practice-card">
+                    <h4>Separation of Concerns</h4>
+                    <p>Clear boundaries between presentation, business logic, data access, and database layers minimize coupling and improve testability.</p>
+                </div>
+
+                <div class="practice-card">
+                    <h4>Dependency Injection</h4>
+                    <p>Services and repositories are injected rather than hard-coded, improving flexibility and enabling easier unit testing.</p>
+                </div>
+
+                <div class="practice-card">
+                    <h4>Repository Pattern</h4>
+                    <p>Data access logic is abstracted into repositories, providing a clean API for querying and modifying data.</p>
+                </div>
+
+                <div class="practice-card">
+                    <h4>AutoMapper</h4>
+                    <p>DTOs (Data Transfer Objects) are automatically mapped between API contracts and domain models, reducing boilerplate.</p>
+                </div>
+
+                <div class="practice-card">
+                    <h4>Exception Handling & Logging</h4>
+                    <p>Comprehensive exception handling and structured logging enable quick debugging and production issue resolution.</p>
+                </div>
+
+                <div class="practice-card">
+                    <h4>Validation</h4>
+                    <p>Input validation at multiple layers prevents invalid data from reaching the database and ensures API contract compliance.</p>
+                </div>
+
+                <div class="practice-card">
+                    <h4>SDLC Principles</h4>
+                    <p>Software Development Life Cycle principles provide a structured approach to planning, designing, developing, testing, deploying, and maintaining software systems.</p>
+                </div>
+
+                <div class="practice-card">
+                    <h4>DRY (Don't Repeat Yourself)</h4>
+                    <p>Common logic is extracted into reusable services and utilities to reduce duplication and maintenance burden.</p>
+                </div>
+
+                <div class="practice-card">
+                    <h4>Code Organization</h4>
+                    <p>Projects are organized by concern (API, Application, Data, Infrastructure) with clear naming conventions and folder structure.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- API Development -->
+    <section id="api" class="light">
+        <div class="container">
+            <h2>REST API Development</h2>
+            <p>The backend exposes RESTful endpoints that the Flutter application consumes via HTTP requests and JSON responses.</p>
+            
+            <div class="api-flow">
+                <h3 style="color: var(--text-dark); margin-bottom: var(--spacing-lg);">API Request → Response Flow</h3>
+                
+                <div class="flow-diagram">
+                    <div class="flow-item">
+                        <h4>📱 Client</h4>
+                        <p>Flutter App</p>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">
+                        <h4>🌐 HTTP Request</h4>
+                        <p>Method & Endpoint</p>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">
+                        <h4>🎮 Controller</h4>
+                        <p>Route & Handler</p>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">
+                        <h4>⚡ Service</h4>
+                        <p>Business Logic</p>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">
+                        <h4>💾 Data</h4>
+                        <p>Repository Query</p>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--text-dark); margin-top: var(--spacing-xl); margin-bottom: var(--spacing-lg);">Example Endpoints</h3>
+                
+                <div class="endpoint-list">
+                    <div class="endpoint">
+                        <span class="endpoint-method">GET</span>
+                        <code>/api/products</code>
+                        <p style="margin-top: 6px; font-size: 11px;">Retrieve all products</p>
+                    </div>
+
+                    <div class="endpoint">
+                        <span class="endpoint-method">GET</span>
+                        <code>/api/products/{id}</code>
+                        <p style="margin-top: 6px; font-size: 11px;">Get product details</p>
+                    </div>
+
+                    <div class="endpoint">
+                        <span class="endpoint-method">GET</span>
+                        <code>/api/favorites</code>
+                        <p style="margin-top: 6px; font-size: 11px;">Retrieve user favorites</p>
+                    </div>
+
+                    <div class="endpoint">
+                        <span class="endpoint-method">POST</span>
+                        <code>/api/favorites</code>
+                        <p style="margin-top: 6px; font-size: 11px;">Add to favorites</p>
+                    </div>
+
+                    <div class="endpoint">
+                        <span class="endpoint-method">DELETE</span>
+                        <code>/api/favorites/{id}</code>
+                        <p style="margin-top: 6px; font-size: 11px;">Remove from favorites</p>
+                    </div>
+
+                    <div class="endpoint">
+                        <span class="endpoint-method">GET</span>
+                        <code>/api/promotions</code>
+                        <p style="margin-top: 6px; font-size: 11px;">Active promotions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security -->
+    <section>
+        <div class="container">
+            <h2>Security Architecture</h2>
+            <p>The application implements security best practices to protect user data and API endpoints from unauthorized access.</p>
+            
+            <div class="split-section">
+                <div class="split-box">
+                    <h3>JWT Authentication</h3>
+                    <div class="tech-item">User provides credentials</div>
+                    <div class="tech-item">Server validates the credentials and generates a signed JWT token</div>
+                    <div class="tech-item">JWT token is returned to the Flutter client</div>
+                    <div class="tech-item">Client stores the token and sends it with protected API requests</div>
+                    <div class="tech-item">.NET Core validates the JWT on each protected request</div>
+                    <div class="tech-item">The authenticated user identity and claims are extracted from the token</div>
+                    <div class="tech-item">Authorization determines whether access is allowed based on the authenticated user and required permissions</div>
+
+                </div>
+
+                <div class="split-box dark">
+                    <h3>HTTPS Communication</h3>
+                    <div class="tech-item">Encrypted data in transit</div>
+                    <div class="tech-item">Authenticates the server through TLS certificates</div>
+                    <div class="tech-item">Protects data confidentiality and integrity</div>
+                    <div class="tech-item">Helps prevent man-in-the-middle attacks</div>
+                    <div class="tech-item">Secures communication between the client and API</div>
+                </div>
+            </div>
+
+            <p style="margin-top: var(--spacing-lg); color: var(--text-light);">Each API request is secured with JWT bearer tokens in the Authorization header. The server validates token authenticity and expiration before processing requests. HTTPS ensures encrypted communication between the Flutter app and the ASP.NET Core API, protecting sensitive data from interception.</p>
+        </div>
+    </section>
+
+    <!-- Database -->
     <section class="light">
         <div class="container">
-            <h2>Complete User Experience</h2>
+            <h2>Database Architecture</h2>
+            <p>SQL Server stores all application data with Entity Framework Core handling object-relational mapping and query execution.</p>
             
-            <div class="screenshots-grid">
-                <div class="screenshot-item">
-                    <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251738/a1lvlsmbb7nex9tvuxt9.png" alt="Login screen">
-                    <div class="screenshot-label">
-                        <h4>Secure Login</h4>
-                        <p>Easy access to your account</p>
-                    </div>
+            <div class="split-section">
+                <div class="split-box">
+                    <h3>Entity Framework Core</h3>
+                    <div class="tech-item">DbContext manages database access and entity tracking</div>
+                    <div class="tech-item">LINQ queries are translated into SQL when supported by EF Core</div>
+                    <div class="tech-item">Change tracking detects entity changes for updates</div>
+                    <div class="tech-item">Database schema and relationships are mapped through EF Core configuration</div>
+                    <div class="tech-item">Relationships are configured through entity navigation properties and EF Core mappings</div>
+                    <div class="tech-item">Async CRUD operations are simplified through DbContext and repository abstractions</div>
                 </div>
 
-                <div class="screenshot-item">
-                    <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251738/amxpfr53s9ey69psvfma.png" alt="Sign up screen">
-                    <div class="screenshot-label">
-                        <h4>Quick Registration</h4>
-                        <p>Create your account in minutes</p>
-                    </div>
+                <div class="split-box">
+                    <h3>Entities & Relationships</h3>
+                    <div class="tech-item">Product — represents grocery items</div>
+                    <div class="tech-item">Category — organizes products</div>
+                    <div class="tech-item">Favorite — user saved items</div>
+                    <div class="tech-item">Promotion — discounts & offers</div>
+                    <div class="tech-item">Cart — current shopping items</div>
+                    <div class="tech-item">Order — purchase history</div>
+                    <div class="tech-item">User — account data</div>
+                </div>
+            </div>
+
+            <p style="margin-top: var(--spacing-lg); color: var(--text-light);">The repository pattern abstracts data access, allowing services to query and modify data without direct SQL knowledge. EF Core's lazy loading and eager loading strategies optimize query performance for mobile-friendly response times.</p>
+        </div>
+    </section>
+
+    <!-- Testing & Verification -->
+    <section id="testing">
+        <div class="container">
+            <h2>Testing & API Verification</h2>
+            <p>Multiple testing approaches ensure API reliability, data integrity, and application stability throughout development.</p>
+            
+            <div class="split-section" style="margin-top: var(--spacing-xl);">
+                <div class="split-box">
+                    <h3>Project Tests</h3>
+                    <p style="margin-bottom: var(--spacing-md); color: var(--text-light); font-size: 14px;">The Cayan.Project.Tests project validates application behavior through tests of services, repositories, and database interactions. Tests ensure that business logic functions correctly when services call repositories, which in turn query SQL Server through Entity Framework Core.</p>
+                    <div class="tech-item">Service behavior validation</div>
+                    <div class="tech-item">Repository query verification</div>
+                    <div class="tech-item">Database interaction testing</div>
+                    <div class="tech-item">Data transformation validation</div>
+                    <div class="tech-item">Error handling coverage</div>
                 </div>
 
-                <div class="screenshot-item">
-                    <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251739/gmr1k4l29w3c2c36tdb0.png" alt="User profile screen">
-                    <div class="screenshot-label">
-                        <h4>Your Profile</h4>
-                        <p>Manage your personal information</p>
-                    </div>
+                <div class="split-box dark">
+                    <h3>Postman & Swagger</h3>
+                    <p style="margin-bottom: var(--spacing-md); color: #ccc; font-size: 14px;">Postman was used throughout development to test API endpoints, verify request/response contracts, and validate HTTP status codes. Swagger provides interactive API documentation for exploring available endpoints and their parameters.</p>
+                    <div class="tech-item">API request testing</div>
+                    <div class="tech-item">Response validation</div>
+                    <div class="tech-item">Status code verification</div>
+                    <div class="tech-item">Endpoint documentation</div>
+                    <div class="tech-item">Integration testing</div>
+                </div>
+            </div>
+
+            <h3 style="color: var(--text-dark); margin-top: var(--spacing-xl); margin-bottom: var(--spacing-md);">Build → Test → Debug → Fix Cycle</h3>
+            
+            <div class="flow-diagram" style="margin-top: var(--spacing-xl);">
+                <div class="flow-item">
+                    <h4>🔨 Build</h4>
+                    <p>Compile code</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">
+                    <h4>✅ Test</h4>
+                    <p>Run tests</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">
+                    <h4>🔍 Debug</h4>
+                    <p>Identify issues</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">
+                    <h4>🛠️ Fix</h4>
+                    <p>Resolve problems</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">
+                    <h4>🚀 Integrate</h4>
+                    <p>Merge & stabilize</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Frontend & Backend -->
+    <section class="light">
+        <div class="container">
+            <h2>Frontend + Backend Integration</h2>
+            <p>The complete application combines Flutter mobile UI with a sophisticated .NET backend architecture to deliver a seamless user experience.</p>
+            
+            <div class="split-section" style="margin-top: var(--spacing-xl);">
+                <div class="split-box">
+                    <h3 style="color: var(--primary);">📱 Flutter Frontend</h3>
+                    <div class="tech-item">Mobile user interface</div>
+                    <div class="tech-item">State management</div>
+                    <div class="tech-item">API service layer</div>
+                    <div class="tech-item">REST client</div>
+                    <div class="tech-item">JSON deserialization</div>
+                    <div class="tech-item">User interaction handling</div>
+                    <div class="tech-item">Responsive layouts</div>
+                    <div class="tech-item">Local data caching</div>
                 </div>
 
-                <div class="screenshot-item">
-                    <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251739/uwpaxdvitjdtxv7jjudt.png" alt="Home screen">
-                    <div class="screenshot-label">
-                        <h4>Home Dashboard</h4>
-                        <p>Personalized shopping experience</p>
-                    </div>
+                <div class="split-box dark">
+                    <h3 style="color: var(--teal);">⚙️ .NET Backend</h3>
+                    <div class="tech-item">REST API endpoints</div>
+                    <div class="tech-item">Controller routing</div>
+                    <div class="tech-item">Service layer logic</div>
+                    <div class="tech-item">Repository data access</div>
+                    <div class="tech-item">Entity Framework Core</div>
+                    <div class="tech-item">JWT authentication</div>
+                    <div class="tech-item">Input validation</div>
+                    <div class="tech-item">Error responses</div>
                 </div>
+            </div>
 
-                <div class="screenshot-item">
-                    <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251739/jh0gvmkeouoblbeugctm.png" alt="Product details">
-                    <div class="screenshot-label">
-                        <h4>Product Details</h4>
-                        <p>In-depth information and options</p>
+            <p style="margin-top: var(--spacing-xl); text-align: center; color: var(--text-light);">
+                <strong>API Communication:</strong> The Flutter app makes HTTP requests to the ASP.NET Core API using REST conventions. Requests include JWT tokens for authentication and receive JSON responses containing products, favorites, orders, and user data. This separation of concerns allows both layers to evolve independently while maintaining clear communication contracts.
+            </p>
+        </div>
+    </section>
+
+    <!-- Development Journey Timeline -->
+    <section>
+        <div class="container">
+            <h2>Development Journey</h2>
+            <p>The project progressed through distinct phases of planning, design, implementation, and refinement.</p>
+            
+            <div class="timeline">
+                <div class="timeline-items">
+                    <div class="timeline-item" style="animation-delay: 0s;">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>Requirements & Planning</h4>
+                            <p>Defined project scope, features, and technical architecture for an eCommerce mobile platform.</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="screenshot-item">
-                    <img src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1789251738/uus0auoyajyikh61esxq.png" alt="Checkout">
-                    <div class="screenshot-label">
-                        <h4>Checkout</h4>
-                        <p>Simple, secure payment process</p>
+                    <div class="timeline-item" style="animation-delay: 0.1s;">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>Low-Fidelity Design</h4>
+                            <p>Created wireframes and user flows to map out the application structure.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item" style="animation-delay: 0.2s;">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>High-Fidelity UI/UX</h4>
+                            <p>Designed polished screens in Figma with colors, typography, spacing, and interactions.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item" style="animation-delay: 0.3s;">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>Flutter Development</h4>
+                            <p>Implemented Figma designs as functional Flutter screens with state management.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item" style="animation-delay: 0.4s;">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>Database Integration</h4>
+                            <p>Set up SQL Server, Entity Framework Core, and data access patterns.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item" style="animation-delay: 0.5s;">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>Backend Development</h4>
+                            <p>Built .NET Core REST APIs, services, repositories, and database schema.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item" style="animation-delay: 0.6s;">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>API Integration</h4>
+                            <p>Connected Flutter app to backend APIs via REST and JSON communication.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item" style="animation-delay: 0.7s;">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>Security Implementation</h4>
+                            <p>Implemented JWT authentication and authorization, DTO validation, and centralized exception handling.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item" style="animation-delay: 0.8s;">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>Testing & Verification</h4>
+                            <p>Tested APIs with Postman, ran unit tests, validated database interactions.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item" style="animation-delay: 0.9s;">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>Debugging & Stabilization</h4>
+                            <p>Resolved integration and runtime issues, verified key workflows, and stabilized the application.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- How It Works -->
-    <section id="how-it-works">
+    <!-- Final Showcase -->
+    <section class="accent">
         <div class="container">
-            <h2>How It Works</h2>
-            <div class="flow-steps">
-                <div class="flow-step">
-                    <div class="step-number">1</div>
-                    <h4>Sign Up</h4>
-                    <p>Create your account in seconds with your email or existing credentials.</p>
-                </div>
-                <div class="flow-step">
-                    <div class="step-number">2</div>
-                    <h4>Browse</h4>
-                    <p>Explore fresh produce items organized by category or search for specific products.</p>
-                </div>
-                <div class="flow-step">
-                    <div class="step-number">3</div>
-                    <h4>Select</h4>
-                    <p>Choose your preferred weight and quantity. Add items to cart or save as favorites.</p>
-                </div>
-                <div class="flow-step">
-                    <div class="step-number">4</div>
-                    <h4>Checkout</h4>
-                    <p>Review your order, apply available discounts, and select your payment method.</p>
-                </div>
-                <div class="flow-step">
-                    <div class="step-number">5</div>
-                    <h4>Delivered</h4>
-                    <p>Your fresh produce is delivered to your specified location the same day.</p>
-                </div>
+            <div class="closing">
+                <h2>Complete Software Solution</h2>
+                <p>This project demonstrates full-stack eCommerce development: from UI/UX design in Figma through Flutter mobile implementation, to a professional backend with .NET Core, REST APIs, JWT security, Entity Framework Core data access, SQL Server persistence, comprehensive testing, and production stabilization.</p>
+                
+                <h3 style=" font-size: 24px; margin-top: var(--spacing-xl); margin-bottom: var(--spacing-md);">Cayan Solutions</h3>
+                <p style="font-size: 16px;">Software Development Internship — 3 Months</p>
+                
+                <p style="margin-top: var(--spacing-xl); font-size: 15px; opacity: 0.95;">The project provided hands-on exposure to requirements analysis, design systems, mobile development, backend architecture, database design, API development, authentication, security practices, testing methodologies, debugging workflows, and production deployment considerations—representing a complete software development lifecycle.</p>
             </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section id="download" class="cta-section">
-        <div class="container">
-            <h2>Ready for Fresh Produce Delivered Daily?</h2>
-            <p>Download the app today and start enjoying the freshest selection of fruits, vegetables, and groceries delivered right to your door.</p>
-            <button class="cta-button-light">Download Now</button>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2026 Fresh Produce Delivery. All rights reserved.</p>
+            <p>&copy; 2026 Software Engineering Portfolio. Fresh Produce eCommerce Application Case Study.</p>
         </div>
     </footer>
+
+<script>
+(() => {
+  const body = document.body, header = document.querySelector('header');
+  const progress = document.createElement('div'); progress.className = 'scroll-progress'; body.appendChild(progress);
+  const menu = document.createElement('button'); menu.className='menu-toggle'; menu.type='button'; menu.setAttribute('aria-label','Toggle navigation'); menu.textContent='☰'; document.querySelector('.header-content')?.appendChild(menu);
+  const top = document.createElement('button'); top.className='scroll-top'; top.type='button'; top.setAttribute('aria-label','Back to top'); top.textContent='↑'; body.appendChild(top);
+  const addReveal = (selector, mode='') => document.querySelectorAll(selector).forEach(el => { el.classList.add('reveal'); if(mode) el.classList.add(mode); });
+  addReveal('section > .container > h2'); addReveal('section > .container > p'); addReveal('.feature-block:nth-child(odd)','from-left'); addReveal('.feature-block:nth-child(even)','from-right'); addReveal('.split-box:nth-child(odd)','from-left'); addReveal('.split-box:nth-child(even)','from-right'); addReveal('.timeline-item'); addReveal('.architecture-container'); addReveal('.api-flow');
+  ['.overview','.tech-stack','.practices-grid','.showcase-grid','.flow-diagram','.arch-support'].forEach(s => document.querySelectorAll(s).forEach(el => el.classList.add('reveal','reveal-stagger')));
+  const observer = new IntersectionObserver((entries, obs) => entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add('is-visible'); obs.unobserve(entry.target); } }), {threshold:.12, rootMargin:'0px 0px -40px'});
+  document.querySelectorAll('.reveal,.timeline').forEach(el => observer.observe(el));
+  const update = () => { const max=document.documentElement.scrollHeight-innerHeight; progress.style.width=`${max>0?(scrollY/max)*100:0}%`; header?.classList.toggle('scrolled',scrollY>24); top.classList.toggle('visible',scrollY>500); };
+  addEventListener('scroll', update, {passive:true}); update();
+  menu.addEventListener('click', () => { const open=body.classList.toggle('menu-open'); menu.setAttribute('aria-expanded',String(open)); menu.textContent=open?'×':'☰'; });
+  document.querySelectorAll('nav a').forEach(a => a.addEventListener('click',()=>body.classList.remove('menu-open')));
+  top.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));
+  const links=[...document.querySelectorAll('nav a')]; const sections=[...document.querySelectorAll('section[id]')];
+  const active=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')===`#${e.target.id}`));}),{rootMargin:'-35% 0px -55% 0px'}); sections.forEach(s=>active.observe(s));
+})();
+</script>
+
 </body>
 </html>
