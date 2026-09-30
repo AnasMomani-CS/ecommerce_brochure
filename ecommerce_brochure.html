@@ -265,6 +265,33 @@
     white-space: nowrap;
 }
 
+.closing-personal-logo {
+    display: block;
+    width: 160px;
+    max-width: 42vw;
+    height: auto;
+    max-height: 54px;
+    margin: var(--spacing-lg ) auto var(--spacing-sm);
+    object-fit: contain;
+}
+
+.closing-company-name {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(
+        110deg,
+        #9bdcff 0%,
+        #3e9fe5 38%,
+        #125a9d 68%,
+        #05070a 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
 
         nav a {
             margin-left: var(--spacing-lg);
@@ -1317,14 +1344,14 @@ nav a:hover::after,nav a.active::after { transform:scaleX(1); }
                     <h1>From Product Idea to Production-Ready Architecture</h1>
                     <div class="company-attribution">
                         <span>During my internship with</span>
-                        <img class="company-logo" src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1790105120/e70p8rejkqsipkkxy7fh.png" alt="Cayan Solutions logo">
+                        <img class="company-logo" src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1790789315/hvfbvsvci66da8dkz7oe.png" alt="Cayan Solutions logo">
                     </div>
                     <p class="subtitle">A real-world eCommerce mobile application developed across UI/UX design, Flutter frontend, .NET Core backend APIs, SQL Server database integration, security implementation and comprehensive testing.</p>
                     
                     <div class="hero-badges">
                         <div class="badge">🎯 Software Development Internship</div>
-	                        <div class="badge">🎨 Figma + Design</div>
-	                        <div class="badge">📱 Flutter + Dart</div>
+	                    <div class="badge">🎨 Figma + Design</div>
+	                    <div class="badge">📱 Flutter + Dart</div>
                         <div class="badge">⚙️ .NET + REST APIs</div>
                         <div class="badge">🛡️ JWT + HTTPS</div>
                         <div class="badge">🗄️ SQL Server</div>
@@ -1426,7 +1453,7 @@ nav a:hover::after,nav a.active::after { transform:scaleX(1); }
                 <div class="feature-block" style="animation-delay: 0s;">
                     <div class="feature-text">
                         <h3>Personalized Shopping</h3>
-                        <p>Users see their delivery location and a curated feed of fresh produce organized by category. The home screen displays active promotions and featured products with real-time pricing.</p>
+                        <p>Users see their delivery location and a curated feed of fresh products organized by category. The home screen displays active promotions and featured products with real-time pricing.</p>
                         <ul class="feature-list">
                             <li>Location-based delivery display</li>
                             <li>Product categories</li>
@@ -2139,8 +2166,20 @@ nav a:hover::after,nav a.active::after { transform:scaleX(1); }
                 <h2>Complete Software Solution</h2>
                 <p>This project demonstrates full-stack eCommerce development: from UI/UX design in Figma through Flutter mobile implementation, to a professional backend with .NET Core, REST APIs, JWT security, Entity Framework Core data access, SQL Server persistence, comprehensive testing, and production stabilization.</p>
                 
-                <h3 style=" font-size: 24px; margin-top: var(--spacing-xl); margin-bottom: var(--spacing-md);">Cayan Solutions</h3>
-                <p style="font-size: 16px;">Software Development Internship — 3 Months</p>
+                <img class="closing-personal-logo"
+                    src="https://res.cloudinary.com/dlcznjfy2/image/upload/v1790789260/b10cfopqsgiczjie8ppv.png"
+                    alt="Anas Al-Momani logo">
+
+
+                <p style="font-size: 16px; margin-bottom: 6px;">
+                        Software Development Internship — 3 Months with
+                </p>
+
+                <p class="closing-company-name">
+                    Cayan Solutions
+                </p>
+
+
                 
                 <p style="margin-top: var(--spacing-xl); font-size: 15px; opacity: 0.95;">The project provided hands-on exposure to requirements analysis, design systems, mobile development, backend architecture, database design, API development, authentication, security practices, testing methodologies, debugging workflows, and production deployment considerations—representing a complete software development lifecycle.</p>
             </div>
@@ -2150,7 +2189,7 @@ nav a:hover::after,nav a.active::after { transform:scaleX(1); }
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2026 Software Engineering Portfolio. Fresh Produce eCommerce Application Case Study.</p>
+            <p>&copy; 2026 Software Engineering Portfolio. Fresh Products eCommerce Application Case Study.</p>
         </div>
     </footer>
 
