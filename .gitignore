@@ -1,0 +1,33 @@
+
+# Build outputs and local configuration
+.DS_Store
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+build/
+coverage/
+.gradle/
+.cxx/
+.idea/
+*.iml
+local.properties
+**/Pods/
+**/.symlinks/
+**/ephemeral/
+**/DerivedData/
+**/xcuserdata/
+
+# Secrets and signing files
+.env
+.env.*
+*.pem
+*.p12
+*.pfx
+*.key
+*.jks
+*.keystore
+key.properties
+*service-account*.json
+*serviceAccount*.json
